@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render
 
 from .forms import CSVUploadForm, REQUIRED_CSV_COLUMNS
 from .models import IOCRecord
-from .services.reporting import generate_markdown_report
+from .services.reporting import generate_markdown_report, generate_pdf_report
 from .services.triage import parse_csv_upload
 
 
@@ -63,13 +63,7 @@ def report(request):
         response["Content-Disposition"] = 'attachment; filename="ioc_triage_report.md"'
         return response
     if request.GET.get("download") == "pdf":
-        try:
-            from .services.reporting import generate_pdf_report
-
-            pdf_bytes = generate_pdf_report(records)
-        except ImportError:
-            messages.error(request, "PDF export requires ReportLab. Install requirements.txt and try again.")
-            return redirect("report")
+        pdf_bytes = generate_pdf_report(records)
         response = HttpResponse(pdf_bytes, content_type="application/pdf")
         response["Content-Disposition"] = 'attachment; filename="ioc_triage_report.pdf"'
         return response

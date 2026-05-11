@@ -10,7 +10,7 @@ A small, polished Django portfolio project for defensive cybersecurity workflows
 - Placeholder API hooks for VirusTotal and AbuseIPDB through environment variables
 - Results table with filtering by detected type and confidence level
 - Badges for IOC type, reputation, and confidence
-- Markdown report download and PDF export through ReportLab
+- Markdown report download and PDF export with ReportLab when installed plus a built-in fallback PDF writer
 - Basic service tests for detection, invalid inputs, confidence, and MITRE mapping
 
 ## Setup
@@ -83,6 +83,10 @@ secure-login-update-example.com,domain,Email gateway,2026-05-01
 http://45.77.12.10/login/update.exe,url,Proxy logs,2026-05-02
 44d88612fea8a8f36de82e1278abb02f,hash,EDR alert,2026-05-02
 ```
+
+## PDF export
+
+PDF downloads work with ReportLab when dependencies are installed from `requirements.txt`. If ReportLab is unavailable, the app falls back to a simple built-in PDF writer so users can still download the report instead of seeing an install error.
 
 ## Screenshots
 

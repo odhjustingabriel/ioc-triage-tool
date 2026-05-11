@@ -1,5 +1,8 @@
 from collections import Counter, defaultdict
 from io import BytesIO
+import importlib.util
+import re
+import textwrap
 
 
 def _escape(value):
@@ -89,12 +92,11 @@ def generate_markdown_report(records):
     return "\n".join(lines)
 
 
-def generate_pdf_report(records):
+def _generate_reportlab_pdf(markdown):
     from reportlab.lib.pagesizes import letter
     from reportlab.lib.styles import getSampleStyleSheet
     from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
 
-    markdown = generate_markdown_report(records)
     buffer = BytesIO()
     doc = SimpleDocTemplate(buffer, pagesize=letter, title="Threat Intelligence IOC Triage Report")
     styles = getSampleStyleSheet()
@@ -114,3 +116,80 @@ def generate_pdf_report(records):
     doc.build(story)
     buffer.seek(0)
     return buffer.getvalue()
+
+
+def _pdf_escape(value):
+    return str(value).replace("\\", "\\\\").replace("(", "\\(").replace(")", "\\)")
+
+
+def _plain_report_lines(markdown):
+    lines = []
+    for raw_line in markdown.splitlines():
+        line = raw_line.strip()
+        if line.startswith("|---"):
+            continue
+        line = line.replace("|", "  ")
+        line = re.sub(r"^[#]+\s*", "", line)
+        line = line.replace("**", "")
+        if not line:
+            lines.append("")
+            continue
+        wrapped = textwrap.wrap(line, width=100) or [""]
+        lines.extend(wrapped)
+    return lines
+
+
+def _generate_basic_pdf(markdown):
+    lines = _plain_report_lines(markdown)
+    lines_per_page = 48
+    pages = [lines[index : index + lines_per_page] for index in range(0, len(lines), lines_per_page)] or [[]]
+
+    objects = {
+        1: b"<< /Type /Catalog /Pages 2 0 R >>",
+        3: b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
+    }
+    kids = []
+    next_object_id = 4
+    for page_lines in pages:
+        page_id = next_object_id
+        content_id = next_object_id + 1
+        next_object_id += 2
+        kids.append(f"{page_id} 0 R")
+        text_commands = ["BT", "/F1 10 Tf", "50 742 Td", "14 TL"]
+        for line in page_lines:
+            text_commands.append(f"({_pdf_escape(line)}) Tj")
+            text_commands.append("T*")
+        text_commands.append("ET")
+        stream = "\n".join(text_commands).encode("latin-1", "replace")
+        objects[page_id] = (
+            f"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] "
+            f"/Resources << /Font << /F1 3 0 R >> >> /Contents {content_id} 0 R >>"
+        ).encode("ascii")
+        objects[content_id] = b"<< /Length " + str(len(stream)).encode("ascii") + b" >>\nstream\n" + stream + b"\nendstream"
+
+    objects[2] = f"<< /Type /Pages /Kids [{' '.join(kids)}] /Count {len(kids)} >>".encode("ascii")
+
+    output = BytesIO()
+    output.write(b"%PDF-1.4\n%\xe2\xe3\xcf\xd3\n")
+    offsets = [0]
+    for object_id in range(1, max(objects) + 1):
+        offsets.append(output.tell())
+        output.write(f"{object_id} 0 obj\n".encode("ascii"))
+        output.write(objects[object_id])
+        output.write(b"\nendobj\n")
+    xref_offset = output.tell()
+    output.write(f"xref\n0 {len(offsets)}\n".encode("ascii"))
+    output.write(b"0000000000 65535 f \n")
+    for offset in offsets[1:]:
+        output.write(f"{offset:010d} 00000 n \n".encode("ascii"))
+    output.write(
+        f"trailer\n<< /Size {len(offsets)} /Root 1 0 R >>\nstartxref\n{xref_offset}\n%%EOF\n".encode("ascii")
+    )
+    return output.getvalue()
+
+
+def generate_pdf_report(records):
+    markdown = generate_markdown_report(records)
+    if importlib.util.find_spec("reportlab") is not None:
+        return _generate_reportlab_pdf(markdown)
+    return _generate_basic_pdf(markdown)
