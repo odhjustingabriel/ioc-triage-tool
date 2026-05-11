@@ -1,0 +1,45 @@
+:root {
+    color-scheme: dark;
+}
+body {
+    background: #07110f;
+    color: #e8f3ef;
+}
+.navbar, .card, .table-card {
+    background: #0d1b18;
+}
+.hero {
+    background: radial-gradient(circle at top left, rgba(25, 135, 84, .35), transparent 34%), #0d1b18;
+    border: 1px solid rgba(25, 135, 84, .35);
+}
+.card, .form-control, .form-select {
+    border-color: rgba(25, 135, 84, .35);
+}
+.form-control, .form-select {
+    background-color: #081411;
+    color: #e8f3ef;
+}
+.upload-card {
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, .35);
+}
+.sample-csv, .report-preview pre {
+    background: #050b0a;
+    border: 1px solid rgba(25, 135, 84, .25);
+    border-radius: .75rem;
+    color: #d5fff0;
+    padding: 1rem;
+    white-space: pre-wrap;
+}
+.ioc-cell {
+    max-width: 260px;
+    overflow-wrap: anywhere;
+}
+.badge-type { background: #0dcaf0; color: #001517; }
+.rep-benign { background: #198754; color: white; }
+.rep-suspicious { background: #ffc107; color: #1f1600; }
+.rep-malicious { background: #dc3545; color: white; }
+.rep-unknown { background: #6c757d; color: white; }
+.confidence-high { background: #dc3545; }
+.confidence-medium { background: #ffc107; color: #1f1600; }
+.confidence-low { background: #6c757d; }
+.table-dark { --bs-table-bg: #0d1b18; }
