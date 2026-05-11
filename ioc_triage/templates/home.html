@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero p-4 p-md-5 rounded-4 mb-4">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+            <p class="text-success text-uppercase fw-semibold mb-2">Defensive cybersecurity portfolio project</p>
+            <h1 class="display-6 fw-bold">Threat Intelligence IOC Triage Tool</h1>
+            <p class="lead">Upload suspicious indicators, classify them safely, add passive enrichment, map conservative MITRE ATT&CK context, and produce a recruiter-friendly report.</p>
+            <p class="small text-secondary">No active scanning, probing, exploitation, malware execution, or required API keys.</p>
+        </div>
+        <div class="col-lg-5">
+            <div class="card upload-card">
+                <div class="card-body">
+                    <h2 class="h5">Upload CSV</h2>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button class="btn btn-success w-100" type="submit">Triage Indicators</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="card">
+    <div class="card-body">
+        <h2 class="h5">Example CSV format</h2>
+        <pre class="sample-csv mb-0">indicator,type,source,date_found
+185.199.108.153,ip,SIEM alert,2026-05-01
+secure-login-update-example.com,domain,Email gateway,2026-05-01
+http://45.77.12.10/login/update.exe,url,Proxy logs,2026-05-02
+44d88612fea8a8f36de82e1278abb02f,hash,EDR alert,2026-05-02</pre>
+    </div>
+</div>
+{% endblock %}
