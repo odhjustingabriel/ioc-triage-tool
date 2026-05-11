@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
-from .forms import CSVUploadForm
+from .forms import CSVUploadForm, REQUIRED_CSV_COLUMNS
 from .models import IOCRecord
 from .services.reporting import generate_markdown_report
 from .services.triage import parse_csv_upload
@@ -13,16 +13,25 @@ def home(request):
         form = CSVUploadForm(request.POST, request.FILES)
         if form.is_valid():
             try:
-                triage_results = parse_csv_upload(form.cleaned_data["csv_file"])
-                IOCRecord.objects.bulk_create([IOCRecord(**result.__dict__) for result in triage_results])
-                messages.success(request, f"Processed {len(triage_results)} IOC record(s).")
+                all_results = []
+                uploaded_files = form.cleaned_data["csv_files"]
+                for uploaded_file in uploaded_files:
+                    all_results.extend(parse_csv_upload(uploaded_file))
+                IOCRecord.objects.bulk_create([IOCRecord(**result.__dict__) for result in all_results])
+                messages.success(
+                    request,
+                    f"Processed {len(all_results)} IOC record(s) from {len(uploaded_files)} CSV file(s).",
+                )
                 return redirect("results")
-            except ValueError as exc:
-                messages.error(request, str(exc))
+            except ValueError:
+                messages.error(
+                    request,
+                    f"Invalid CSV format. Required columns: {REQUIRED_CSV_COLUMNS}. Please select another file.",
+                )
             except UnicodeDecodeError:
-                messages.error(request, "CSV must be UTF-8 encoded text.")
+                messages.error(request, "CSV must be UTF-8 encoded text. Please select another file.")
         else:
-            messages.error(request, "Please correct the upload error and try again.")
+            messages.error(request, "Upload failed. Select 1 to 5 CSV files, each 3 MB or smaller.")
     else:
         form = CSVUploadForm()
     return render(request, "home.html", {"form": form})

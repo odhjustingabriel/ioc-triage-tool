@@ -36,3 +36,46 @@ class TriageServiceTests(TestCase):
         result = triage_indicator({"indicator": "secure-login-update-example.com", "type": "domain", "source": "email", "date_found": "2026-05-01"})
         self.assertEqual(result.mitre_tactic, "Initial Access")
         self.assertIn("T1566.002", result.mitre_technique)
+
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.urls import reverse
+
+from .models import IOCRecord
+
+
+class UploadWorkflowTests(TestCase):
+    def test_multiple_csv_files_upload_in_one_batch(self):
+        files = [
+            SimpleUploadedFile(
+                "one.csv",
+                b"indicator,type,source,date_found\nsecure-login-update-example.com,domain,Email,2026-05-01\n",
+                content_type="text/csv",
+            ),
+            SimpleUploadedFile(
+                "two.csv",
+                b"indicator,type,source,date_found\nhttp://198.51.100.10/login/update.exe,url,Proxy,2026-05-02\n",
+                content_type="text/csv",
+            ),
+        ]
+
+        response = self.client.post(reverse("home"), {"csv_files": files}, follow=True)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(IOCRecord.objects.count(), 2)
+        self.assertContains(response, "Processed 2 IOC record(s) from 2 CSV file(s).")
+
+    def test_invalid_csv_format_prompts_user_to_select_another_file(self):
+        invalid_file = SimpleUploadedFile(
+            "bad.csv",
+            b"value,kind\nnot-good,unknown\n",
+            content_type="text/csv",
+        )
+
+        response = self.client.post(reverse("home"), {"csv_files": [invalid_file]}, follow=True)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(IOCRecord.objects.count(), 0)
+        self.assertContains(
+            response,
+            "Invalid CSV format. Required columns: indicator, type, source, date_found. Please select another file.",
+        )

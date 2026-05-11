@@ -4,7 +4,7 @@ A small, polished Django portfolio project for defensive cybersecurity workflows
 
 ## Features
 
-- CSV upload with required columns: `indicator`, `type`, `source`, `date_found`
+- CSV upload for up to five files at a time, each 3 MB or smaller, with required columns: `indicator`, `type`, `source`, `date_found`
 - IOC detection for IPv4, IPv6, URLs, domains, MD5, SHA1, and SHA256 hashes
 - Safe local enrichment only; no scanning, probing, exploitation, or content execution
 - Placeholder API hooks for VirusTotal and AbuseIPDB through environment variables
@@ -99,7 +99,7 @@ This project demonstrates practical defensive engineering: secure file handling,
 ## Security notes
 
 - Only `.csv` uploads are accepted.
-- Upload size is limited to 2 MB.
+- Upload batches are limited to five CSV files, and each file must be 3 MB or smaller.
 - Uploaded content is parsed as text and never executed.
 - The application does not actively scan, probe, exploit, brute force, or run malware.
 - External API keys, if later used, should be stored only in environment variables such as `VIRUSTOTAL_API_KEY` and `ABUSEIPDB_API_KEY`.
