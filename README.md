@@ -84,7 +84,6 @@ http://45.77.12.10/login/update.exe,url,Proxy logs,2026-05-02
 44d88612fea8a8f36de82e1278abb02f,hash,EDR alert,2026-05-02
 ```
 
-
 ## PDF export
 
 PDF downloads work with ReportLab when dependencies are installed from `requirements.txt`. If ReportLab is unavailable, the app falls back to a simple built-in PDF writer so users can still download the report instead of seeing an install error.
