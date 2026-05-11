@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero p-4 p-md-5 rounded-4 mb-4">
+    <div class="row align-items-center g-4">
+        <div class="col-xl-8 col-lg-10">
+            <p class="eyebrow mb-2">Passive IOC enrichment and reporting</p>
+            <h1 class="display-6 fw-bold">Threat Intelligence IOC Triage Tool</h1>
+            <p class="lead mb-3">Classify suspicious indicators, add safe local enrichment, map conservative MITRE ATT&CK context, and produce a clean analyst report.</p>
+            <div class="d-flex flex-wrap gap-2">
+                <span class="pill">CSV validation</span>
+                <span class="pill">Passive enrichment</span>
+                <span class="pill">Markdown/PDF reports</span>
+            </div>
+            <p class="small text-secondary mt-4 mb-0">No active scanning, probing, exploitation, malware execution, or required API keys.</p>
+        </div>
+    </div>
+</section>
+
+<section class="upload-section card mb-4">
+    <div class="card-body p-4 p-md-5">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-5">
+                <p class="eyebrow mb-2">Upload workspace</p>
+                <h2 class="h3 fw-bold mb-3">Upload CSV files for triage</h2>
+                <p class="text-secondary mb-0">Select up to five CSV files. Each file must be 3 MB or smaller and include the required columns: <code>indicator</code>, <code>type</code>, <code>source</code>, and <code>date_found</code>.</p>
+            </div>
+            <div class="col-lg-7">
+                <form method="post" enctype="multipart/form-data" class="upload-form" novalidate>
+                    {% csrf_token %}
+                    {{ form.csv_files }}
+                    <div class="upload-dropzone">
+                        <div>
+                            <h3 class="h5 mb-2">Choose IOC CSV files</h3>
+                            <p class="text-secondary mb-3">You can upload 1–5 files in one batch.</p>
+                            <label class="btn btn-outline-success file-picker" for="id_csv_files">Choose CSV files</label>
+                        </div>
+                        <div class="selected-files" id="selected-file-status" aria-live="polite">No files selected yet.</div>
+                    </div>
+                    {% if form.csv_files.errors %}
+                        <div class="text-danger small mt-3">{{ form.csv_files.errors|striptags }}</div>
+                    {% endif %}
+                    <button class="btn btn-success btn-lg w-100 mt-3" type="submit">Triage Selected Files</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="card">
+    <div class="card-body">
+        <h2 class="h5">Example CSV format</h2>
+        <pre class="sample-csv mb-0">indicator,type,source,date_found
+185.199.108.153,ip,SIEM alert,2026-05-01
+secure-login-update-example.com,domain,Email gateway,2026-05-01
+http://45.77.12.10/login/update.exe,url,Proxy logs,2026-05-02
+44d88612fea8a8f36de82e1278abb02f,hash,EDR alert,2026-05-02</pre>
+    </div>
+</div>
+
+<script>
+    const csvInput = document.getElementById("id_csv_files");
+    const selectedFileStatus = document.getElementById("selected-file-status");
+
+    csvInput?.addEventListener("change", () => {
+        const files = Array.from(csvInput.files || []);
+        if (files.length === 0) {
+            selectedFileStatus.textContent = "No files selected yet.";
+            selectedFileStatus.classList.remove("has-files");
+            return;
+        }
+
+        const fileSummary = files.map((file) => `${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`).join(" • ");
+        selectedFileStatus.textContent = `${files.length} file${files.length === 1 ? "" : "s"} selected: ${fileSummary}`;
+        selectedFileStatus.classList.add("has-files");
+    });
+</script>
+{% endblock %}
