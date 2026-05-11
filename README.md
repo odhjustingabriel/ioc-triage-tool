@@ -25,9 +25,20 @@ On macOS/Linux, activate the virtual environment with `source .venv/bin/activate
 
 ## Database migrations
 
+Run Django management commands from the folder that contains `manage.py` (the project root):
+
 ```bash
 python manage.py migrate
 ```
+
+If you accidentally use Python's module mode, this project also includes compatibility wrappers for:
+
+```bash
+python -m manage migrate
+python -m manage.py migrate
+```
+
+The normal Django form, `python manage.py migrate`, is still recommended.
 
 ## Start the server
 
@@ -35,7 +46,7 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-Open <http://127.0.0.1:8000/> and upload `sample_iocs.csv`.
+Open <http://127.0.0.1:8000/> and upload `sample_iocs.csv` for a quick demo or `sample_iocs_comprehensive.csv` for a richer dataset with 180 suspicious IOC rows.
 
 ## Run tests
 
@@ -43,7 +54,27 @@ Open <http://127.0.0.1:8000/> and upload `sample_iocs.csv`.
 python manage.py test
 ```
 
-## Example CSV
+
+## Troubleshooting management commands on Windows
+
+Do not run `python -m manage.py migrate` from a directory that does not contain the project files. In PowerShell, first change into the repository folder and confirm `manage.py` is present:
+
+```powershell
+cd "D:\HOC\IOC Triage"
+dir manage.py
+python manage.py migrate
+```
+
+If `dir manage.py` does not show the file, you are in the wrong folder or the project files were not copied there.
+
+## Example CSV files
+
+The repository includes two ready-to-upload CSV files:
+
+- `sample_iocs.csv` — a compact four-row smoke-test dataset.
+- `sample_iocs_comprehensive.csv` — a richer 180-row dataset with IP, domain, URL, and hash examples from varied sources and dates.
+
+Compact example format:
 
 ```csv
 indicator,type,source,date_found
