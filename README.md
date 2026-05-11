@@ -25,20 +25,9 @@ On macOS/Linux, activate the virtual environment with `source .venv/bin/activate
 
 ## Database migrations
 
-Run Django management commands from the folder that contains `manage.py` (the project root):
-
 ```bash
 python manage.py migrate
 ```
-
-If you accidentally use Python's module mode, this project also includes compatibility wrappers for:
-
-```bash
-python -m manage migrate
-python -m manage.py migrate
-```
-
-The normal Django form, `python manage.py migrate`, is still recommended.
 
 ## Start the server
 
@@ -53,19 +42,6 @@ Open <http://127.0.0.1:8000/> and upload `sample_iocs.csv`.
 ```bash
 python manage.py test
 ```
-
-
-## Troubleshooting management commands on Windows
-
-Do not run `python -m manage.py migrate` from a directory that does not contain the project files. In PowerShell, first change into the repository folder and confirm `manage.py` is present:
-
-```powershell
-cd "D:\HOC\IOC Triage"
-dir manage.py
-python manage.py migrate
-```
-
-If `dir manage.py` does not show the file, you are in the wrong folder or the project files were not copied there.
 
 ## Example CSV
 
