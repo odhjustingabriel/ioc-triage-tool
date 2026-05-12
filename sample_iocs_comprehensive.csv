@@ -1,0 +1,181 @@
+indicator,type,source,date_found
+198.51.100.10,ip,SIEM alert,2026-05-01
+198.51.100.11,ip,Email gateway,2026-05-02
+198.51.100.12,ip,Proxy logs,2026-05-03
+198.51.100.13,ip,EDR alert,2026-05-04
+198.51.100.14,ip,Firewall logs,2026-05-05
+198.51.100.15,ip,DNS telemetry,2026-05-06
+198.51.100.16,ip,Threat intel feed,2026-05-07
+198.51.100.17,ip,SOC analyst review,2026-05-08
+198.51.100.18,ip,Sandbox report,2026-05-09
+198.51.100.19,ip,Authentication logs,2026-05-10
+198.51.100.20,ip,Cloud WAF,2026-05-11
+198.51.100.21,ip,Endpoint DNS cache,2026-05-12
+198.51.100.22,ip,Phishing mailbox,2026-05-13
+198.51.100.23,ip,Case escalation,2026-05-14
+198.51.100.24,ip,Network IDS,2026-05-15
+203.0.113.20,ip,SIEM alert,2026-05-16
+203.0.113.21,ip,Email gateway,2026-05-17
+203.0.113.22,ip,Proxy logs,2026-05-18
+203.0.113.23,ip,EDR alert,2026-05-19
+203.0.113.24,ip,Firewall logs,2026-05-20
+203.0.113.25,ip,DNS telemetry,2026-05-21
+203.0.113.26,ip,Threat intel feed,2026-05-01
+203.0.113.27,ip,SOC analyst review,2026-05-02
+203.0.113.28,ip,Sandbox report,2026-05-03
+203.0.113.29,ip,Authentication logs,2026-05-04
+203.0.113.30,ip,Cloud WAF,2026-05-05
+203.0.113.31,ip,Endpoint DNS cache,2026-05-06
+203.0.113.32,ip,Phishing mailbox,2026-05-07
+203.0.113.33,ip,Case escalation,2026-05-08
+203.0.113.34,ip,Network IDS,2026-05-09
+10.42.0.50,ip,SIEM alert,2026-05-10
+10.42.1.51,ip,Email gateway,2026-05-11
+10.42.2.52,ip,Proxy logs,2026-05-12
+10.42.3.53,ip,EDR alert,2026-05-13
+10.42.4.54,ip,Firewall logs,2026-05-14
+10.42.5.55,ip,DNS telemetry,2026-05-15
+10.42.6.56,ip,Threat intel feed,2026-05-16
+10.42.7.57,ip,SOC analyst review,2026-05-17
+10.42.8.58,ip,Sandbox report,2026-05-18
+10.42.9.59,ip,Authentication logs,2026-05-19
+10.42.10.60,ip,Cloud WAF,2026-05-20
+10.42.11.61,ip,Endpoint DNS cache,2026-05-21
+10.42.12.62,ip,Phishing mailbox,2026-05-01
+10.42.13.63,ip,Case escalation,2026-05-02
+10.42.14.64,ip,Network IDS,2026-05-03
+portal-secure-verify-000.example,domain,EDR alert,2026-05-05
+billing-login-update-001.example,domain,Firewall logs,2026-05-06
+mail-verify-account-002.example,domain,DNS telemetry,2026-05-07
+vpn-update-free-003.example,domain,Threat intel feed,2026-05-08
+sso-account-bonus-004.example,domain,SOC analyst review,2026-05-09
+mfa-free-secure-005.example,domain,Sandbox report,2026-05-10
+docs-bonus-login-006.example,domain,Authentication logs,2026-05-11
+payroll-secure-verify-007.example,domain,Cloud WAF,2026-05-12
+storage-login-update-008.example,domain,Endpoint DNS cache,2026-05-13
+helpdesk-verify-account-009.example,domain,Phishing mailbox,2026-05-14
+invoice-update-free-010.example,domain,Case escalation,2026-05-15
+support-account-bonus-011.example,domain,Network IDS,2026-05-16
+admin-free-secure-012.example,domain,SIEM alert,2026-05-17
+cloud-bonus-login-013.example,domain,Email gateway,2026-05-18
+share-secure-verify-014.example,domain,Proxy logs,2026-05-19
+portal-login-update-015.example,domain,EDR alert,2026-05-20
+billing-verify-account-016.example,domain,Firewall logs,2026-05-21
+mail-update-free-017.example,domain,DNS telemetry,2026-05-01
+vpn-account-bonus-018.example,domain,Threat intel feed,2026-05-02
+sso-free-secure-019.example,domain,SOC analyst review,2026-05-03
+mfa-bonus-login-020.example,domain,Sandbox report,2026-05-04
+docs-secure-verify-021.example,domain,Authentication logs,2026-05-05
+payroll-login-update-022.example,domain,Cloud WAF,2026-05-06
+storage-verify-account-023.example,domain,Endpoint DNS cache,2026-05-07
+helpdesk-update-free-024.example,domain,Phishing mailbox,2026-05-08
+invoice-account-bonus-025.example,domain,Case escalation,2026-05-09
+support-free-secure-026.example,domain,Network IDS,2026-05-10
+admin-bonus-login-027.example,domain,SIEM alert,2026-05-11
+cloud-secure-verify-028.example,domain,Email gateway,2026-05-12
+share-login-update-029.example,domain,Proxy logs,2026-05-13
+portal-verify-account-030.example,domain,EDR alert,2026-05-14
+billing-update-free-031.example,domain,Firewall logs,2026-05-15
+mail-account-bonus-032.example,domain,DNS telemetry,2026-05-16
+vpn-free-secure-033.example,domain,Threat intel feed,2026-05-17
+sso-bonus-login-034.example,domain,SOC analyst review,2026-05-18
+mfa-secure-verify-035.example,domain,Sandbox report,2026-05-19
+docs-login-update-036.example,domain,Authentication logs,2026-05-20
+payroll-verify-account-037.example,domain,Cloud WAF,2026-05-21
+storage-update-free-038.example,domain,Endpoint DNS cache,2026-05-01
+helpdesk-account-bonus-039.example,domain,Phishing mailbox,2026-05-02
+invoice-free-secure-040.example,domain,Case escalation,2026-05-03
+support-bonus-login-041.example,domain,Network IDS,2026-05-04
+admin-secure-verify-042.example,domain,SIEM alert,2026-05-05
+cloud-login-update-043.example,domain,Email gateway,2026-05-06
+share-verify-account-044.example,domain,Proxy logs,2026-05-07
+http://a.b.c.secure-000.example/login/update.exe?campaign=login&id=1000,url,Threat intel feed,2026-05-09
+https://login.billing.alerts-001.example/account/verify,url,SOC analyst review,2026-05-10
+http://verify.mail.alerts-002.example/secure/session-reset,url,Sandbox report,2026-05-11
+https://198.51.100.83/free/bonus/claim,url,Authentication logs,2026-05-12
+http://account.sso.alerts-004.example/update/package.scr?campaign=free&id=1004,url,Cloud WAF,2026-05-13
+https://a.b.c.free-005.example/mfa/confirm.js,url,Endpoint DNS cache,2026-05-14
+http://198.51.100.86/invoice/view.exe,url,Phishing mailbox,2026-05-15
+https://secure.payroll.alerts-007.example/vpn/login,url,Case escalation,2026-05-16
+http://login.storage.alerts-008.example/portal/account-update?campaign=verify&id=1008,url,Network IDS,2026-05-17
+https://198.51.100.89/download/security_patch.exe,url,SIEM alert,2026-05-18
+http://a.b.c.update-010.example/login/update.exe,url,Email gateway,2026-05-19
+https://account.support.alerts-011.example/account/verify,url,Proxy logs,2026-05-20
+http://198.51.100.92/secure/session-reset?campaign=bonus&id=1012,url,EDR alert,2026-05-21
+https://bonus.cloud.alerts-013.example/free/bonus/claim,url,Firewall logs,2026-05-01
+http://secure.share.alerts-014.example/update/package.scr,url,DNS telemetry,2026-05-02
+https://a.b.c.login-015.example/mfa/confirm.js,url,Threat intel feed,2026-05-03
+http://verify.billing.alerts-016.example/invoice/view.exe?campaign=update&id=1016,url,SOC analyst review,2026-05-04
+https://update.mail.alerts-017.example/vpn/login,url,Sandbox report,2026-05-05
+http://198.51.100.98/portal/account-update,url,Authentication logs,2026-05-06
+https://free.sso.alerts-019.example/download/security_patch.exe,url,Cloud WAF,2026-05-07
+http://a.b.c.bonus-020.example/login/update.exe?campaign=secure&id=1020,url,Endpoint DNS cache,2026-05-08
+https://198.51.100.101/account/verify,url,Phishing mailbox,2026-05-09
+http://login.payroll.alerts-022.example/secure/session-reset,url,Case escalation,2026-05-10
+https://verify.storage.alerts-023.example/free/bonus/claim,url,Network IDS,2026-05-11
+http://198.51.100.104/update/package.scr?campaign=account&id=1024,url,SIEM alert,2026-05-12
+https://a.b.c.account-025.example/mfa/confirm.js,url,Email gateway,2026-05-13
+http://free.support.alerts-026.example/invoice/view.exe,url,Proxy logs,2026-05-14
+https://198.51.100.107/vpn/login,url,EDR alert,2026-05-15
+http://secure.cloud.alerts-028.example/portal/account-update?campaign=login&id=1028,url,Firewall logs,2026-05-16
+https://login.share.alerts-029.example/download/security_patch.exe,url,DNS telemetry,2026-05-17
+http://a.b.c.verify-030.example/login/update.exe,url,Threat intel feed,2026-05-18
+https://update.billing.alerts-031.example/account/verify,url,SOC analyst review,2026-05-19
+http://account.mail.alerts-032.example/secure/session-reset?campaign=free&id=1032,url,Sandbox report,2026-05-20
+https://198.51.100.113/free/bonus/claim,url,Authentication logs,2026-05-21
+http://bonus.sso.alerts-034.example/update/package.scr,url,Cloud WAF,2026-05-01
+https://a.b.c.secure-035.example/mfa/confirm.js,url,Endpoint DNS cache,2026-05-02
+http://198.51.100.116/invoice/view.exe?campaign=verify&id=1036,url,Phishing mailbox,2026-05-03
+https://verify.payroll.alerts-037.example/vpn/login,url,Case escalation,2026-05-04
+http://update.storage.alerts-038.example/portal/account-update,url,Network IDS,2026-05-05
+https://198.51.100.119/download/security_patch.exe,url,SIEM alert,2026-05-06
+http://a.b.c.free-040.example/login/update.exe?campaign=bonus&id=1040,url,Email gateway,2026-05-07
+https://bonus.support.alerts-041.example/account/verify,url,Proxy logs,2026-05-08
+http://198.51.100.122/secure/session-reset,url,EDR alert,2026-05-09
+https://login.cloud.alerts-043.example/free/bonus/claim,url,Firewall logs,2026-05-10
+http://verify.share.alerts-044.example/update/package.scr?campaign=update&id=1044,url,DNS telemetry,2026-05-11
+0123456789abcdef0123456789abcdef,hash,Authentication logs,2026-05-13
+123456789abcdef0123456789abcdef012345678,hash,Cloud WAF,2026-05-14
+23456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef01,hash,Endpoint DNS cache,2026-05-15
+3456789abcdef0123456789abcdef012,hash,Phishing mailbox,2026-05-16
+456789abcdef0123456789abcdef0123456789ab,hash,Case escalation,2026-05-17
+56789abcdef0123456789abcdef0123456789abcdef0123456789abcdef01234,hash,Network IDS,2026-05-18
+6789abcdef0123456789abcdef012345,hash,SIEM alert,2026-05-19
+789abcdef0123456789abcdef0123456789abcde,hash,Email gateway,2026-05-20
+89abcdef0123456789abcdef0123456789abcdef0123456789abcdef01234567,hash,Proxy logs,2026-05-21
+9abcdef0123456789abcdef012345678,hash,EDR alert,2026-05-01
+abcdef0123456789abcdef0123456789abcdef01,hash,Firewall logs,2026-05-02
+bcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789a,hash,DNS telemetry,2026-05-03
+cdef0123456789abcdef0123456789ab,hash,Threat intel feed,2026-05-04
+def0123456789abcdef0123456789abcdef01234,hash,SOC analyst review,2026-05-05
+ef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcd,hash,Sandbox report,2026-05-06
+f0123456789abcdef0123456789abcde,hash,Authentication logs,2026-05-07
+0123456789abcdef0123456789abcdef01234567,hash,Cloud WAF,2026-05-08
+123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0,hash,Endpoint DNS cache,2026-05-09
+23456789abcdef0123456789abcdef01,hash,Phishing mailbox,2026-05-10
+3456789abcdef0123456789abcdef0123456789a,hash,Case escalation,2026-05-11
+456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123,hash,Network IDS,2026-05-12
+56789abcdef0123456789abcdef01234,hash,SIEM alert,2026-05-13
+6789abcdef0123456789abcdef0123456789abcd,hash,Email gateway,2026-05-14
+789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456,hash,Proxy logs,2026-05-15
+89abcdef0123456789abcdef01234567,hash,EDR alert,2026-05-16
+9abcdef0123456789abcdef0123456789abcdef0,hash,Firewall logs,2026-05-17
+abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789,hash,DNS telemetry,2026-05-18
+bcdef0123456789abcdef0123456789a,hash,Threat intel feed,2026-05-19
+cdef0123456789abcdef0123456789abcdef0123,hash,SOC analyst review,2026-05-20
+def0123456789abcdef0123456789abcdef0123456789abcdef0123456789abc,hash,Sandbox report,2026-05-21
+ef0123456789abcdef0123456789abcd,hash,Authentication logs,2026-05-01
+f0123456789abcdef0123456789abcdef0123456,hash,Cloud WAF,2026-05-02
+0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef,hash,Endpoint DNS cache,2026-05-03
+123456789abcdef0123456789abcdef0,hash,Phishing mailbox,2026-05-04
+23456789abcdef0123456789abcdef0123456789,hash,Case escalation,2026-05-05
+3456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef012,hash,Network IDS,2026-05-06
+456789abcdef0123456789abcdef0123,hash,SIEM alert,2026-05-07
+56789abcdef0123456789abcdef0123456789abc,hash,Email gateway,2026-05-08
+6789abcdef0123456789abcdef0123456789abcdef0123456789abcdef012345,hash,Proxy logs,2026-05-09
+789abcdef0123456789abcdef0123456,hash,EDR alert,2026-05-10
+89abcdef0123456789abcdef0123456789abcdef,hash,Firewall logs,2026-05-11
+9abcdef0123456789abcdef0123456789abcdef0123456789abcdef012345678,hash,DNS telemetry,2026-05-12
+abcdef0123456789abcdef0123456789,hash,Threat intel feed,2026-05-13
+bcdef0123456789abcdef0123456789abcdef012,hash,SOC analyst review,2026-05-14
+cdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789ab,hash,Sandbox report,2026-05-15
