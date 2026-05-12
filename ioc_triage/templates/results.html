@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+    <div>
+        <h1 class="h3 mb-1">Processed IOCs</h1>
+        <p class="text-secondary mb-0">Filter and review validation, enrichment, confidence, and MITRE mapping.</p>
+    </div>
+    <a class="btn btn-outline-success" href="{% url 'report' %}">Generate Report</a>
+</div>
+<form class="card card-body mb-3" method="get">
+    <div class="row g-3 align-items-end">
+        <div class="col-md-4">
+            <label class="form-label" for="detected_type">Detected type</label>
+            <select class="form-select" id="detected_type" name="detected_type">
+                <option value="">All</option>
+                {% for option in type_options %}
+                    <option value="{{ option }}" {% if selected_type == option %}selected{% endif %}>{{ option }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label" for="confidence">Confidence</label>
+            <select class="form-select" id="confidence" name="confidence">
+                <option value="">All</option>
+                {% for option in confidence_options %}
+                    <option value="{{ option }}" {% if selected_confidence == option %}selected{% endif %}>{{ option }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-4 d-flex gap-2">
+            <button class="btn btn-success" type="submit">Apply filters</button>
+            <a class="btn btn-outline-light" href="{% url 'results' %}">Reset</a>
+        </div>
+    </div>
+</form>
+<div class="table-responsive card table-card">
+    <table class="table table-dark table-hover align-middle mb-0">
+        <thead>
+            <tr>
+                <th>Indicator</th><th>Submitted Type</th><th>Detected Type</th><th>Source</th><th>Date Found</th>
+                <th>Validation Status</th><th>Reputation</th><th>ASN</th><th>Country</th><th>Malware Family</th>
+                <th>MITRE Mapping</th><th>Confidence Level</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+            <tr>
+                <td class="ioc-cell">{{ record.indicator }}</td>
+                <td>{{ record.submitted_type }}</td>
+                <td><span class="badge badge-type">{{ record.detected_type }}</span></td>
+                <td>{{ record.source }}</td>
+                <td>{{ record.date_found }}</td>
+                <td>{% if record.is_valid %}<span class="badge text-bg-success">Valid</span>{% else %}<span class="badge text-bg-danger">Invalid</span>{% endif %}<div class="small text-secondary">{{ record.validation_notes }}</div></td>
+                <td><span class="badge rep-{{ record.reputation|lower }}">{{ record.reputation }}</span><div class="small text-secondary">{{ record.reputation_notes }}</div></td>
+                <td>{{ record.asn_display }}</td>
+                <td>{{ record.country_display }}</td>
+                <td>{{ record.malware_family|default:"—" }}</td>
+                <td><strong>{{ record.mitre_tactic }}</strong><br><span class="small">{{ record.mitre_technique }}</span></td>
+                <td><span class="badge confidence-{{ record.confidence_level|lower }}">{{ record.confidence_level }}</span><div class="small text-secondary">{{ record.confidence_reason }}</div></td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="12" class="text-center py-4">No IOC records found. Upload a CSV to begin.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
