@@ -84,8 +84,8 @@ def enrich_ip(indicator: str) -> dict:
         return {
             "reputation": "Benign",
             "reputation_notes": "Private/internal IP address; treat as local context unless seen in suspicious logs.",
-            "asn": "Not applicable - private IP",
-            "country": "Private/internal network",
+            "asn": "Internal/private address",
+            "country": "Internal/private address",
             "signals": [],
         }
     if ip_obj.is_loopback or ip_obj.is_link_local or ip_obj.is_multicast or ip_obj.is_reserved:
@@ -94,6 +94,8 @@ def enrich_ip(indicator: str) -> dict:
             "reputation_notes": "Reserved, loopback, link-local, multicast, or otherwise non-routable IP address.",
             "asn": "Reserved/non-routable address",
             "country": "Not geolocated",
+            "asn": "Not applicable",
+            "country": "Not applicable",
             "signals": [],
         }
     return {
@@ -101,6 +103,8 @@ def enrich_ip(indicator: str) -> dict:
         "reputation_notes": "Public IP address. Passive ASN/reputation lookup is not configured; verify with approved sources.",
         "asn": "External ASN lookup not configured",
         "country": "External GeoIP lookup not configured",
+        "asn": "Unknown - external lookup not configured",
+        "country": "Unknown - external lookup not configured",
         "signals": ["public_ip"],
     }
 
