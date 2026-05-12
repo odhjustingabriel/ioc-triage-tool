@@ -23,11 +23,11 @@ def home(request):
                     f"Processed {len(all_results)} IOC record(s) from {len(uploaded_files)} CSV file(s).",
                 )
                 return redirect("results")
-            except ValueError:
-                messages.error(
-                    request,
-                    f"Invalid CSV format. Required columns: {REQUIRED_CSV_COLUMNS}. Please select another file.",
+            except ValueError as exc:
+                error_message = str(exc).strip() or (
+                    f"Invalid CSV upload. Ensure the file contains valid IOC rows and includes required columns: {REQUIRED_CSV_COLUMNS}."
                 )
+                messages.error(request, f"{error_message} Please select another file.")
             except UnicodeDecodeError:
                 messages.error(request, "CSV must be UTF-8 encoded text. Please select another file.")
         else:
