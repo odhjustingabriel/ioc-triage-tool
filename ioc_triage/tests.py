@@ -8,7 +8,6 @@ from .models import IOCRecord
 from .services.reporting import generate_pdf_report
 from .services.triage import detect_hash_type, detect_ioc_type, score_confidence, triage_indicator
 
-
 class TriageServiceTests(TestCase):
     def test_ip_detection_supports_ipv4_and_ipv6(self):
         self.assertEqual(detect_ioc_type("185.199.108.153"), "ip")
@@ -42,6 +41,27 @@ class TriageServiceTests(TestCase):
         result = triage_indicator({"indicator": "secure-login-update-example.com", "type": "domain", "source": "email", "date_found": "2026-05-01"})
         self.assertEqual(result.mitre_tactic, "Initial Access")
         self.assertIn("T1566.002", result.mitre_technique)
+
+    def test_ip_enrichment_uses_distinct_asn_and_country_labels(self):
+        private_result = triage_indicator({
+            "indicator": "10.42.14.64",
+            "type": "ip",
+            "source": "Network IDS",
+            "date_found": "2026-05-03",
+        })
+        public_result = triage_indicator({
+            "indicator": "8.8.8.8",
+            "type": "ip",
+            "source": "SIEM alert",
+            "date_found": "2026-05-03",
+        })
+
+        self.assertEqual(private_result.asn, "Not applicable - private IP")
+        self.assertEqual(private_result.country, "Private/internal network")
+        self.assertNotEqual(private_result.asn, private_result.country)
+        self.assertEqual(public_result.asn, "External ASN lookup not configured")
+        self.assertEqual(public_result.country, "External GeoIP lookup not configured")
+        self.assertNotEqual(public_result.asn, public_result.country)
 
 class UploadWorkflowTests(TestCase):
     def test_multiple_csv_files_upload_in_one_batch(self):
@@ -79,6 +99,34 @@ class UploadWorkflowTests(TestCase):
             response,
             "Invalid CSV format. Required columns: indicator, type, source, date_found. Please select another file.",
         )
+
+    def test_results_table_omits_country_column_for_low_confidence_ip_records(self):
+        IOCRecord.objects.create(
+            indicator="10.42.14.64",
+            submitted_type="ip",
+            detected_type="ip",
+            source="Network IDS",
+            date_found="2026-05-03",
+            is_valid=True,
+            validation_notes="Valid IOC detected.",
+            reputation="Benign",
+            reputation_notes="Private/internal IP address; treat as local context unless seen in suspicious logs.",
+            asn="Internal/private address",
+            country="Internal/private address",
+            mitre_tactic="Unmapped",
+            mitre_technique="Not enough evidence",
+            confidence_level="Low",
+            confidence_reason="Valid IOC, but reputation is unknown or evidence is limited.",
+        )
+
+        response = self.client.get(reverse("results") + "?detected_type=&confidence=Low")
+        content = response.content.decode()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Not applicable - private IP")
+        self.assertNotContains(response, "<th>Country</th>", html=True)
+        self.assertNotIn("Private/internal network", content)
+        self.assertEqual(content.count("Internal/private address"), 0)
 
 class ReportDownloadTests(TestCase):
     def test_pdf_report_download_returns_pdf_without_error_message(self):

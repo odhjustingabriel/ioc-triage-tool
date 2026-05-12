@@ -92,6 +92,8 @@ def enrich_ip(indicator: str) -> dict:
         return {
             "reputation": "Unknown",
             "reputation_notes": "Reserved, loopback, link-local, multicast, or otherwise non-routable IP address.",
+            "asn": "Reserved/non-routable address",
+            "country": "Not geolocated",
             "asn": "Not applicable",
             "country": "Not applicable",
             "signals": [],
@@ -99,6 +101,8 @@ def enrich_ip(indicator: str) -> dict:
     return {
         "reputation": "Unknown",
         "reputation_notes": "Public IP address. Passive ASN/reputation lookup is not configured; verify with approved sources.",
+        "asn": "External ASN lookup not configured",
+        "country": "External GeoIP lookup not configured",
         "asn": "Unknown - external lookup not configured",
         "country": "Unknown - external lookup not configured",
         "signals": ["public_ip"],

@@ -38,7 +38,7 @@
         <thead>
             <tr>
                 <th>Indicator</th><th>Submitted Type</th><th>Detected Type</th><th>Source</th><th>Date Found</th>
-                <th>Validation Status</th><th>Reputation</th><th>ASN</th><th>Country</th><th>Malware Family</th>
+                <th>Validation Status</th><th>Reputation</th><th>ASN</th><th>Malware Family</th>
                 <th>MITRE Mapping</th><th>Confidence Level</th>
             </tr>
         </thead>
@@ -52,14 +52,13 @@
                 <td>{{ record.date_found }}</td>
                 <td>{% if record.is_valid %}<span class="badge text-bg-success">Valid</span>{% else %}<span class="badge text-bg-danger">Invalid</span>{% endif %}<div class="small text-secondary">{{ record.validation_notes }}</div></td>
                 <td><span class="badge rep-{{ record.reputation|lower }}">{{ record.reputation }}</span><div class="small text-secondary">{{ record.reputation_notes }}</div></td>
-                <td>{{ record.asn|default:"—" }}</td>
-                <td>{{ record.country|default:"—" }}</td>
+                <td>{{ record.asn_display }}</td>
                 <td>{{ record.malware_family|default:"—" }}</td>
                 <td><strong>{{ record.mitre_tactic }}</strong><br><span class="small">{{ record.mitre_technique }}</span></td>
                 <td><span class="badge confidence-{{ record.confidence_level|lower }}">{{ record.confidence_level }}</span><div class="small text-secondary">{{ record.confidence_reason }}</div></td>
             </tr>
             {% empty %}
-            <tr><td colspan="12" class="text-center py-4">No IOC records found. Upload a CSV to begin.</td></tr>
+            <tr><td colspan="11" class="text-center py-4">No IOC records found. Upload a CSV to begin.</td></tr>
             {% endfor %}
         </tbody>
     </table>
