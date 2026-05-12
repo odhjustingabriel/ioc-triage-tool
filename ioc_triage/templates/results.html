@@ -52,8 +52,8 @@
                 <td>{{ record.date_found }}</td>
                 <td>{% if record.is_valid %}<span class="badge text-bg-success">Valid</span>{% else %}<span class="badge text-bg-danger">Invalid</span>{% endif %}<div class="small text-secondary">{{ record.validation_notes }}</div></td>
                 <td><span class="badge rep-{{ record.reputation|lower }}">{{ record.reputation }}</span><div class="small text-secondary">{{ record.reputation_notes }}</div></td>
-                <td>{{ record.asn_display }}</td>
-                <td>{{ record.country_display }}</td>
+                <td>{{ record.asn|default:"—" }}</td>
+                <td>{{ record.country|default:"—" }}</td>
                 <td>{{ record.malware_family|default:"—" }}</td>
                 <td><strong>{{ record.mitre_tactic }}</strong><br><span class="small">{{ record.mitre_technique }}</span></td>
                 <td><span class="badge confidence-{{ record.confidence_level|lower }}">{{ record.confidence_level }}</span><div class="small text-secondary">{{ record.confidence_reason }}</div></td>

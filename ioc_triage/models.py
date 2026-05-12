@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class IOCRecord(models.Model):
     CONFIDENCE_CHOICES = [
         ("Low", "Low"),
@@ -28,38 +29,6 @@ class IOCRecord(models.Model):
 
     class Meta:
         ordering = ["-created_at", "id"]
-
-    @property
-    def asn_display(self):
-        if not self.asn:
-            return "—"
-        if self.detected_type == "ip":
-            legacy_asn_labels = {
-                "Internal/private address": "Not applicable - private IP",
-                "Not applicable": "Reserved/non-routable address",
-                "Unknown - external lookup not configured": "External ASN lookup not configured",
-            }
-            if self.asn in legacy_asn_labels:
-                return legacy_asn_labels[self.asn]
-            if self.asn == self.country:
-                return "ASN not available for this IP"
-        return self.asn
-
-    @property
-    def country_display(self):
-        if not self.country:
-            return "—"
-        if self.detected_type == "ip":
-            legacy_country_labels = {
-                "Internal/private address": "Private/internal network",
-                "Not applicable": "Not geolocated",
-                "Unknown - external lookup not configured": "External GeoIP lookup not configured",
-            }
-            if self.country in legacy_country_labels:
-                return legacy_country_labels[self.country]
-            if self.asn == self.country:
-                return "GeoIP not available for this IP"
-        return self.country
 
     def __str__(self):
         return f"{self.indicator} ({self.detected_type})"
