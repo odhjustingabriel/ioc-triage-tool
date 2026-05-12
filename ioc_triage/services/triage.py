@@ -13,7 +13,6 @@ EXECUTABLE_EXTENSIONS = (".exe", ".scr", ".bat", ".cmd", ".ps1", ".vbs", ".js")
 DOMAIN_RE = re.compile(r"^(?=.{1,253}$)(?!-)(?:[A-Za-z0-9-]{1,63}\.)+[A-Za-z]{2,63}$")
 HASH_RE = re.compile(r"^[a-fA-F0-9]+$")
 
-
 @dataclass
 class TriageResult:
     indicator: str
@@ -298,4 +297,4 @@ def parse_csv_upload(uploaded_file) -> list[TriageResult]:
             )
     if not results:
         raise ValueError("CSV did not contain any IOC rows to process.")
-    return results
+    return results #may not work
