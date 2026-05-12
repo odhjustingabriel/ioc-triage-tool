@@ -43,8 +43,6 @@ class TriageServiceTests(TestCase):
         self.assertEqual(result.mitre_tactic, "Initial Access")
         self.assertIn("T1566.002", result.mitre_technique)
 
-
-
 class UploadWorkflowTests(TestCase):
     def test_multiple_csv_files_upload_in_one_batch(self):
         files = [
