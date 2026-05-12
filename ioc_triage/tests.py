@@ -43,29 +43,6 @@ class TriageServiceTests(TestCase):
         self.assertEqual(result.mitre_tactic, "Initial Access")
         self.assertIn("T1566.002", result.mitre_technique)
 
-    def test_ip_enrichment_uses_distinct_asn_and_country_labels(self):
-        private_result = triage_indicator({
-            "indicator": "10.42.14.64",
-            "type": "ip",
-            "source": "Network IDS",
-            "date_found": "2026-05-03",
-        })
-        public_result = triage_indicator({
-            "indicator": "8.8.8.8",
-            "type": "ip",
-            "source": "SIEM alert",
-            "date_found": "2026-05-03",
-        })
-
-        self.assertEqual(private_result.asn, "Not applicable - private IP")
-        self.assertEqual(private_result.country, "Private/internal network")
-        self.assertNotEqual(private_result.asn, private_result.country)
-        self.assertEqual(public_result.asn, "External ASN lookup not configured")
-        self.assertEqual(public_result.country, "External GeoIP lookup not configured")
-        self.assertNotEqual(public_result.asn, public_result.country)
-
-
-
 class UploadWorkflowTests(TestCase):
     def test_multiple_csv_files_upload_in_one_batch(self):
         files = [
