@@ -80,8 +80,6 @@ class UploadWorkflowTests(TestCase):
             "Invalid CSV format. Required columns: indicator, type, source, date_found. Please select another file.",
         )
 
-
-
 class ReportDownloadTests(TestCase):
     def test_pdf_report_download_returns_pdf_without_error_message(self):
         IOCRecord.objects.create(
