@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class IOCRecord(models.Model):
     CONFIDENCE_CHOICES = [
         ("Low", "Low"),
