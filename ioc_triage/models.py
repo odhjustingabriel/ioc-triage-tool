@@ -31,3 +31,5 @@ class IOCRecord(models.Model):
 
     def __str__(self):
         return f"{self.indicator} ({self.detected_type})"
+#removed the return statement that was causing an error in triage.py, 
+#may need to be added back in if it causes issues
