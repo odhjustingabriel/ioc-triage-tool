@@ -13,6 +13,7 @@ EXECUTABLE_EXTENSIONS = (".exe", ".scr", ".bat", ".cmd", ".ps1", ".vbs", ".js")
 DOMAIN_RE = re.compile(r"^(?=.{1,253}$)(?!-)(?:[A-Za-z0-9-]{1,63}\.)+[A-Za-z]{2,63}$")
 HASH_RE = re.compile(r"^[a-fA-F0-9]+$")
 
+
 @dataclass
 class TriageResult:
     indicator: str
@@ -83,8 +84,8 @@ def enrich_ip(indicator: str) -> dict:
         return {
             "reputation": "Benign",
             "reputation_notes": "Private/internal IP address; treat as local context unless seen in suspicious logs.",
-            "asn": "Internal/private address",
-            "country": "Internal/private address",
+            "asn": "Not applicable - private IP",
+            "country": "Private/internal network",
             "signals": [],
         }
     if ip_obj.is_loopback or ip_obj.is_link_local or ip_obj.is_multicast or ip_obj.is_reserved:
@@ -93,8 +94,6 @@ def enrich_ip(indicator: str) -> dict:
             "reputation_notes": "Reserved, loopback, link-local, multicast, or otherwise non-routable IP address.",
             "asn": "Reserved/non-routable address",
             "country": "Not geolocated",
-            "asn": "Not applicable",
-            "country": "Not applicable",
             "signals": [],
         }
     return {
@@ -102,8 +101,6 @@ def enrich_ip(indicator: str) -> dict:
         "reputation_notes": "Public IP address. Passive ASN/reputation lookup is not configured; verify with approved sources.",
         "asn": "External ASN lookup not configured",
         "country": "External GeoIP lookup not configured",
-        "asn": "Unknown - external lookup not configured",
-        "country": "Unknown - external lookup not configured",
         "signals": ["public_ip"],
     }
 
@@ -297,4 +294,4 @@ def parse_csv_upload(uploaded_file) -> list[TriageResult]:
             )
     if not results:
         raise ValueError("CSV did not contain any IOC rows to process.")
-    return results #may not work
+    return results

@@ -73,7 +73,6 @@ The repository includes two ready-to-upload CSV files:
 
 - `sample_iocs.csv` — a compact four-row smoke-test dataset.
 - `sample_iocs_comprehensive.csv` — a richer 180-row dataset with IP, domain, URL, and hash examples from varied sources and dates.
-- `iocs.csv` - a control test dataset.
 
 Compact example format:
 
@@ -84,6 +83,7 @@ secure-login-update-example.com,domain,Email gateway,2026-05-01
 http://45.77.12.10/login/update.exe,url,Proxy logs,2026-05-02
 44d88612fea8a8f36de82e1278abb02f,hash,EDR alert,2026-05-02
 ```
+
 
 ## PDF export
 
@@ -108,3 +108,23 @@ This project demonstrates practical defensive engineering: secure file handling,
 - The application does not actively scan, probe, exploit, brute force, or run malware.
 - External API keys, if later used, should be stored only in environment variables such as `VIRUSTOTAL_API_KEY` and `ABUSEIPDB_API_KEY`.
 - `.env`, virtual environments, SQLite databases, and upload directories are ignored by Git.
+
+## What I learned
+
+- How to structure a small Django application with clear separation between views, forms, models, templates, and service-layer logic.
+- How to safely validate CSV uploads, enforce file limits, and avoid executing or actively probing uploaded content.
+- How to classify common IOC types using Python standard-library tools such as `ipaddress` and `urllib.parse`.
+- How to design passive enrichment and confidence scoring that is useful for analysts without overclaiming attribution.
+- How to present MITRE ATT&CK mappings conservatively, with rationale and limitations clearly documented.
+- How to generate analyst-friendly Markdown and PDF reports from stored triage results.
+- How to write tests for core detection logic, upload workflows, report downloads, and regression cases found during UI review.
+
+## What I can improve on
+
+- Add optional, well-documented passive API enrichment for VirusTotal, AbuseIPDB, or urlscan.io while keeping the app fully functional without API keys.
+- Improve the report PDF layout with richer tables, page headers, and cleaner pagination for large IOC sets.
+- Add bulk-delete or case-management features so analysts can organize multiple triage sessions more easily.
+- Add date parsing and validation improvements while preserving a fallback for imperfect analyst-provided CSV data.
+- Add dashboard charts for IOC type distribution, reputation counts, confidence levels, and MITRE tactic summaries.
+- Add more accessibility refinements, including stronger keyboard navigation and screen-reader labels for complex result tables.
+- Add deployment hardening guidance for production-like hosting, including secure secret management and static-file handling.
