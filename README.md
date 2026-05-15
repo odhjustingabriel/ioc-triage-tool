@@ -90,12 +90,11 @@ http://45.77.12.10/login/update.exe,url,Proxy logs,2026-05-02
 PDF downloads work with ReportLab when dependencies are installed from `requirements.txt`. If ReportLab is unavailable, the app falls back to a simple built-in PDF writer so users can still download the report instead of seeing an install error.
 
 ## Screenshots
-
-Placeholder for portfolio screenshots:
-
-- Home/upload page
-- Results table with filters
-- Markdown report preview
+![home page](img/image.png)
+![results page](img/image-1.png)
+![results page](img/image-3.png)
+![results page](img/image-2.png)
+![report page](img/image-4.png)
 
 ## Portfolio explanation
 
